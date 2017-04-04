@@ -18,7 +18,7 @@ class ios_foundation_nscalendarTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        helper.setLocal(local: jpLocal)
+        helper.setlocale(locale: jpLocal)
         helper.setTimeZone(timeZone: tokyoTimeZone)
     }
     
@@ -83,12 +83,12 @@ class ios_foundation_nscalendarTests: XCTestCase {
     }
     
     /// 経過時間を取得する（日）
-    /// check: 10日間経過したか？
+    /// check: 7日間経過したか？
     func testDateDiffForDay() {
         
         let fromDate = str2Date(dateStr: "2017/1/2 3:1")
-        let toDate = str2Date(dateStr: "2017/1/12 3:2")
-        XCTAssertEqual(helper.passTimeByDay(fromDate: fromDate, toDate: toDate), 10)
+        let toDate = str2Date(dateStr: "2017/1/9 3:2")
+        XCTAssertEqual(helper.passTimeByDay(fromDate: fromDate, toDate: toDate), 7)
     }
     
     /// 年月日が同じか？（時分秒まで同じ）

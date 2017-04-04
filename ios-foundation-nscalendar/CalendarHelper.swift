@@ -10,19 +10,25 @@ import Foundation
 
 final class CalendarHelper {
     
-    private var calendar = NSCalendar.current
+    private var calendar = Calendar.current
     
     init() {
         calendar.timeZone = TimeZone(identifier: "Asia/Tokyo")!
         calendar.locale = Locale(identifier: "ja")
     }
 
+    /// タイムゾーンを設定する
+    ///
+    /// - Parameter timeZone: タイムゾーンの文字列
     func setTimeZone(timeZone: String) {
          calendar.timeZone = TimeZone(identifier: timeZone)!
     }
     
-    func setLocal(local: String) {
-        calendar.locale = Locale(identifier: local)
+    /// ロケールを設定する
+    ///
+    /// - Parameter locale: ロケールの文字列
+    func setlocale(locale: String) {
+        calendar.locale = Locale(identifier: locale)
     }
     
     /// TimeZoneのIDを取得する
@@ -68,13 +74,15 @@ final class CalendarHelper {
     /// 年月日、時分秒を取得する（まとめて設定できる）
     func dateSettings(date: Date) -> DateComponents {
         return calendar
-            .dateComponents(Set<Calendar.Component>([.year,.month,.day,.hour,.minute,.second]),
+            .dateComponents(Set<Calendar.Component>(
+                [.year,.month,.day,.hour,.minute,.second]),
                                        from: date)
     }
     
     /// 日付の差を取得する
     func diffDate(srcDate: Date, distDate: Date) -> Int {
-        return calendar.dateComponents([.day], from: srcDate, to: distDate).day!
+        return calendar.dateComponents([.day]
+            , from: srcDate, to: distDate).day!
     }
     
     /// ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"]
@@ -111,7 +119,7 @@ final class CalendarHelper {
     }
     
     /// 日付を表示する
-    func renderDate(date: Date) -> String {
+    func dateString(date: Date) -> String {
         
         let component = dateSettings(date: date)
         return "\(component.year!)/\(component.month!)/\(component.day!) \(component.hour!):\(component.minute!):\(component.second!)"
