@@ -13,6 +13,7 @@
 		BC13AF531E46B3C300BD5A41 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BC13AF521E46B3C300BD5A41 /* Assets.xcassets */; };
 		BC13AF561E46B3C300BD5A41 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC13AF541E46B3C300BD5A41 /* LaunchScreen.storyboard */; };
 		BC13AF611E46B3C300BD5A41 /* ios_foundation_nscalendarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC13AF601E46B3C300BD5A41 /* ios_foundation_nscalendarTests.swift */; };
+		BC34C0F91E933FA900EA1F91 /* CalendarHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC34C0F81E933FA900EA1F91 /* CalendarHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +37,7 @@
 		BC13AF5C1E46B3C300BD5A41 /* ios-foundation-nscalendarTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ios-foundation-nscalendarTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC13AF601E46B3C300BD5A41 /* ios_foundation_nscalendarTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ios_foundation_nscalendarTests.swift; sourceTree = "<group>"; };
 		BC13AF621E46B3C300BD5A41 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BC34C0F81E933FA900EA1F91 /* CalendarHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +79,7 @@
 		BC13AF4A1E46B3C300BD5A41 /* ios-foundation-nscalendar */ = {
 			isa = PBXGroup;
 			children = (
+				BC34C0FA1E9344C800EA1F91 /* Helpers */,
 				BC13AF4B1E46B3C300BD5A41 /* AppDelegate.swift */,
 				BC13AF4D1E46B3C300BD5A41 /* ViewController.swift */,
 				BC13AF4F1E46B3C300BD5A41 /* Main.storyboard */,
@@ -94,6 +97,14 @@
 				BC13AF621E46B3C300BD5A41 /* Info.plist */,
 			);
 			path = "ios-foundation-nscalendarTests";
+			sourceTree = "<group>";
+		};
+		BC34C0FA1E9344C800EA1F91 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				BC34C0F81E933FA900EA1F91 /* CalendarHelper.swift */,
+			);
+			name = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -202,6 +213,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BC13AF4E1E46B3C300BD5A41 /* ViewController.swift in Sources */,
+				BC34C0F91E933FA900EA1F91 /* CalendarHelper.swift in Sources */,
 				BC13AF4C1E46B3C300BD5A41 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -410,6 +422,7 @@
 				BC13AF671E46B3C300BD5A41 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		BC13AF681E46B3C300BD5A41 /* Build configuration list for PBXNativeTarget "ios-foundation-nscalendarTests" */ = {
 			isa = XCConfigurationList;
@@ -418,6 +431,7 @@
 				BC13AF6A1E46B3C300BD5A41 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
