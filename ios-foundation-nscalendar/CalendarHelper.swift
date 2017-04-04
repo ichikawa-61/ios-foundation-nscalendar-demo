@@ -10,18 +10,19 @@ import Foundation
 
 final class CalendarHelper {
     
-    private var timeZone = "Asia/Tokyo"
-    private var local = "ja"
     private var calendar = NSCalendar.current
+    
+    init() {
+        calendar.timeZone = TimeZone(identifier: "Asia/Tokyo")!
+        calendar.locale = Locale(identifier: "ja")
+    }
 
     func setTimeZone(timeZone: String) {
-        self.timeZone = timeZone        
-        calendar.timeZone = TimeZone(identifier: self.timeZone)!
+         calendar.timeZone = TimeZone(identifier: timeZone)!
     }
     
     func setLocal(local: String) {
-        self.local = local
-        calendar.locale = Locale(identifier: self.local)
+        calendar.locale = Locale(identifier: local)
     }
     
     /// TimeZoneのIDを取得する
@@ -133,4 +134,79 @@ final class CalendarHelper {
     func endOfMonth(date: Date) -> Int {
         return calendar.range(of: .day, in: .month, for: date)!.count
     }
+    
+    /// 経過時間（秒ごと）
+    ///
+    /// - Parameters:
+    ///   - fromDate: 比較元時間
+    ///   - toDate: 比較先時間
+    /// - Returns: 経過時間（秒）
+    func passTimeBySecond(fromDate: Date, toDate: Date) -> Int {
+        
+        let components = calendar.dateComponents([.second],
+                                                 from: fromDate,
+                                                 to: toDate)
+        return components.second!
+    }
+    
+    /// 経過時間（分ごと)
+    ///
+    /// - Parameters:
+    ///   - fromDate: 比較元時間
+    ///   - toDate: 比較先時間
+    /// - Returns: 経過時間（分）
+    func passTimeByMinitue(fromDate: Date, toDate: Date) -> Int {
+        
+        let components = calendar.dateComponents([.minute],
+                                                 from: fromDate,
+                                                 to: toDate)
+        return components.minute!
+    }
+
+    /// 経過時間（日ごと)
+    ///
+    /// - Parameters:
+    ///   - fromDate: 比較元時間
+    ///   - toDate: 比較先時間
+    /// - Returns: 経過時間（分）
+    func passTimeByDay(fromDate: Date, toDate: Date) -> Int {
+        
+        let components = calendar.dateComponents([.day],
+                                                 from: fromDate,
+                                                 to: toDate)
+        return components.day!
+    }
+    
+    /// 年月日が一致するか？
+    ///
+    /// - Parameters:
+    ///   - fromDate: 比較元時間
+    ///   - toDate: 比較先時間
+    /// - Returns: 結果
+    func isSameDate(fromDate: Date, toDate: Date) -> Bool {
+        return calendar.isDate(fromDate, inSameDayAs: toDate)
+    }
+    
+    /// 年が一致するか？
+    ///
+    /// - Parameters:
+    ///   - fromDate: 比較元時間
+    ///   - toDate: 比較先時間
+    /// - Returns: 結果
+    func isSameYear(fromDate: Date, toDate: Date) -> Bool {
+        return calendar
+            .compare(fromDate, to: toDate, toGranularity: .year) == .orderedSame
+    }
+
+    /// 月が一致するか？
+    ///
+    /// - Parameters:
+    ///   - fromDate: 比較元時間
+    ///   - toDate: 比較先時間
+    /// - Returns: 結果
+    func isSameMonth(fromDate: Date, toDate: Date) -> Bool {
+        return calendar
+            .compare(fromDate, to: toDate, toGranularity: .month) == .orderedSame
+    }
+
 }

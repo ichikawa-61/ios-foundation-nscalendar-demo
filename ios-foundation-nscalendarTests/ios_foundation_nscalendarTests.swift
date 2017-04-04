@@ -64,6 +64,65 @@ class ios_foundation_nscalendarTests: XCTestCase {
         XCTAssertEqual(weekDays[weekDayIndex], "火")
     }
     
+    /// 経過時間を取得する（秒）
+    /// check : 60秒経過したか？
+    func testDateDiffForSecond() {
+        
+        let fromDate = str2Date(dateStr: "2017/1/2 3:1")
+        let toDate = str2Date(dateStr: "2017/1/2 3:2")
+        XCTAssertEqual(helper.passTimeBySecond(fromDate: fromDate, toDate: toDate), 60)
+    }
+    
+    /// 経過時間を取得する（分）
+    /// check: 24時間経過したか？
+    func testDateDiffForMinute() {
+        
+        let fromDate = str2Date(dateStr: "2017/1/2 3:1")
+        let toDate = str2Date(dateStr: "2017/1/3 3:1")
+        XCTAssertEqual(helper.passTimeByMinitue(fromDate: fromDate, toDate: toDate), 24 * 60)
+    }
+    
+    /// 経過時間を取得する（日）
+    /// check: 10日間経過したか？
+    func testDateDiffForDay() {
+        
+        let fromDate = str2Date(dateStr: "2017/1/2 3:1")
+        let toDate = str2Date(dateStr: "2017/1/12 3:2")
+        XCTAssertEqual(helper.passTimeByDay(fromDate: fromDate, toDate: toDate), 10)
+    }
+    
+    /// 年月日が同じか？（時分秒まで同じ）
+    func testSameDateTime() {
+        
+        let fromDate = str2Date(dateStr: "2017/1/12 10:10")
+        let toDate = str2Date(dateStr: "2017/1/12 10:10")
+        XCTAssertTrue(fromDate == toDate)
+    }
+    
+    /// 同年か？（月日、時間は関係ない）
+    func testSameYear() {
+        
+        let fromDate = str2Date(dateStr: "2017/1/1 1:1")
+        let toDate = str2Date(dateStr: "2017/1/12 10:10")
+        XCTAssertTrue(helper.isSameYear(fromDate: fromDate, toDate: toDate))
+    }
+    
+    /// 同年、月か？（日、時間は関係ない）
+    func testSameMonth() {
+        
+        let fromDate = str2Date(dateStr: "2017/1/1 1:1")
+        let toDate = str2Date(dateStr: "2017/1/12 10:10")
+        XCTAssertTrue(helper.isSameMonth(fromDate: fromDate, toDate: toDate))
+    }
+    
+    /// 年月日が同じか？ (時間は関係ない）
+    func testSameDate() {
+        
+        let fromDate = str2Date(dateStr: "2017/1/12 5:5")
+        let toDate = str2Date(dateStr: "2017/1/12 10:10")
+        XCTAssertTrue(helper.isSameDate(fromDate: fromDate, toDate: toDate))
+    }
+
     //MARK:Helper
     func str2Date(dateStr: String) -> Date {
         
