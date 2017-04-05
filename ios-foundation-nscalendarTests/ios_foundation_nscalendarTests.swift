@@ -122,6 +122,68 @@ class ios_foundation_nscalendarTests: XCTestCase {
         let toDate = str2Date(dateStr: "2017/1/12 10:10")
         XCTAssertTrue(helper.isSameDate(fromDate: fromDate, toDate: toDate))
     }
+    
+    /// 該当付きの月初は何日？
+    func testStartOfMonth() {
+        
+        let fromDate = str2Date(dateStr: "2017/1/12 5:5")
+        let startOfDay = helper.startOfMonthDay(date: fromDate)
+        XCTAssertEqual(str2Date(date: startOfDay!, format: "yyyy/MM/dd"), "2017/01/01")
+    }
+    
+    /// 該当付きの月末は何日か？
+    func testEndOfMonth() {
+        
+        let fromDate = str2Date(dateStr: "2017/1/12 5:5")
+        let endOfDay = helper.endOfMonthDay(date: fromDate)
+        XCTAssertEqual(str2Date(date: endOfDay!, format: "yyyy/MM/dd"), "2017/01/31")
+    }
+    
+    /// 月の文字列一覧を取得する
+    func testRenderMonthSymbols() {
+        
+        let monthSymbols = helper.renderMonthSymbols()
+        
+        verifyMonth(count: monthSymbols.count,
+                    months: monthSymbols) { (months) -> Bool in
+                        months.contains("1月") && months.contains("2月") &&
+                            months.contains("3月") && months.contains("4月") &&
+                            months.contains("5月") && months.contains("6月") &&
+                            months.contains("7月") && months.contains("8月") &&
+                            months.contains("9月") && months.contains("10月") &&
+                            months.contains("11月") && months.contains("12月")
+        }
+    }
+    
+    /// 週の文字列一覧を取得する
+    func testRenderWeekdaySymbols() {
+        
+        let weekdaySymbols = helper.renderWeekdaySymbols()
+        
+        verifyWeek(count: weekdaySymbols.count,
+                   weeks: weekdaySymbols) { (weeks) -> Bool in
+                    
+                    weeks.contains("月曜日") && weeks.contains("火曜日") &&
+                    weeks.contains("水曜日") && weeks.contains("木曜日") &&
+                    weeks.contains("金曜日") && weeks.contains("土曜日") &&
+                    weeks.contains("日曜日")
+        }
+    }
+    
+    /// 週の文字列一覧を取得する
+    func testRenderShortWeekdaySymbols() {
+        
+        let weekdaySymbols = helper.renderShortWeekdaySymbols()
+        
+        verifyWeek(count: weekdaySymbols.count,
+                   weeks: weekdaySymbols) { (weeks) -> Bool in
+                    
+                    weeks.contains("月") && weeks.contains("火") &&
+                    weeks.contains("水") && weeks.contains("木") &&
+                    weeks.contains("金") && weeks.contains("土") &&
+                    weeks.contains("日")
+        }
+    }
 
     //MARK:Helper
     func str2Date(dateStr: String) -> Date {
@@ -132,4 +194,29 @@ class ios_foundation_nscalendarTests: XCTestCase {
         return formatter.date(from: dateStr)!
     }
     
+    func str2Date(date: Date, format: String) -> String {
+        
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ja_JP");
+        formatter.dateFormat = format
+        return formatter.string(from:date)
+    }
+    
+    func verifyMonth(count: Int,
+                     months: [String],
+                     extrasMatcher: (([String]) -> Bool)) {
+        
+        XCTAssertEqual(count, 12)
+        XCTAssertTrue(extrasMatcher(months),
+                      "extras was \(months)")
+    }
+    
+    func verifyWeek(count: Int,
+                     weeks: [String],
+                     extrasMatcher: (([String]) -> Bool)) {
+        
+        XCTAssertEqual(count, 7)
+        XCTAssertTrue(extrasMatcher(weeks),
+                      "extras was \(weeks)")
+    }
 }

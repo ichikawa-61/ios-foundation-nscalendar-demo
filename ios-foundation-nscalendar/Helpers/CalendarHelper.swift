@@ -138,6 +138,36 @@ final class CalendarHelper {
         return calendar.range(of: .weekOfMonth, in: .month, for: firstDateOfMonth)!.count
     }
     
+    /// 月初の日付は？
+    ///
+    /// - Parameter date: 日付
+    /// - Returns: 月初の日付
+    func startOfMonthDay(date: Date) -> Date? {
+        var comp: DateComponents = Calendar
+            .current.dateComponents([.year, .month, .day, .hour],
+                                    from:date)
+        comp.day = 1
+        comp.hour = 9
+        return Calendar.current.date(from: comp)!
+    }
+    
+    /// 月末の日付は？
+    ///
+    /// - Parameter date: 日付
+    /// - Returns: 月末の日付
+    func endOfMonthDay(date: Date) -> Date? {
+    
+        var comp: DateComponents = Calendar
+            .current.dateComponents([.month, .month, .day, .hour],
+                                    from: date)
+        comp.month = 1
+        comp.day = -1
+        comp.hour = 9
+        
+        let startOfDay = startOfMonthDay(date: date)
+        return Calendar.current.date(byAdding: comp, to: startOfDay!)
+    }
+    
     /// 該当月の最終日は何日か？
     func endOfMonth(date: Date) -> Int {
         return calendar.range(of: .day, in: .month, for: date)!.count
