@@ -13,7 +13,6 @@ class ios_foundation_nscalendarTests: XCTestCase {
     
     private let tokyoTimeZone = "Asia/Tokyo"
     private let jpLocale = "ja"
-    private var calendar = Calendar.current
     private let helper = CalendarHelper()
 
     override func setUp() {
@@ -26,37 +25,43 @@ class ios_foundation_nscalendarTests: XCTestCase {
         super.tearDown()
     }
     
-    /// 年を取得する
+    /// 年を取得できるか？
+    /// check : 2017
     func testDateYear() {
         let date = str2Date(dateStr: "2017/1/2 3:4")
         XCTAssertEqual(helper.dateYear(date: date), 2017)
     }
     
-    /// 月を取得する
+    /// 月を取得できるか？
+    /// check : 1
     func testDateMonth() {
         let date = str2Date(dateStr: "2017/1/2 3:4")
         XCTAssertEqual(helper.dateMonth(date: date), 1)
     }
 
-    /// 日を取得する
+    /// 日を取得できるか？
+    /// check : 2
     func testDateDay() {
         let date = str2Date(dateStr: "2017/1/2 3:4")
         XCTAssertEqual(helper.dateDay(date: date), 2)
     }
 
-    /// 時間を取得する
+    /// 時間を取得できるか？
+    /// check : 3
     func testDateHour() {
         let date = str2Date(dateStr: "2017/1/2 3:4")
         XCTAssertEqual(helper.dateHour(date: date), 3)
     }
 
-    /// 分を取得する
+    /// 分を取得できるか？
+    /// check : 4
     func testDateMinite() {
         let date = str2Date(dateStr: "2017/1/2 3:4")
         XCTAssertEqual(helper.dateMinute(date: date), 4)
     }
     
-    /// 曜日を取得する
+    /// 曜日を取得できるか？
+    /// check : 火
     func testDateWeekDay() {
         let date = str2Date(dateStr: "2017/1/2 3:4")
         let weekDayIndex = helper.dateWeekDay(date: date)
@@ -64,7 +69,7 @@ class ios_foundation_nscalendarTests: XCTestCase {
         XCTAssertEqual(weekDays[weekDayIndex], "火")
     }
     
-    /// 経過時間を取得する（秒）
+    /// 経過時間が秒単位で取得できるか？
     /// check : 60秒経過したか？
     func testDateDiffForSecond() {
         
@@ -73,7 +78,7 @@ class ios_foundation_nscalendarTests: XCTestCase {
         XCTAssertEqual(helper.passTimeBySecond(fromDate: fromDate, toDate: toDate), 60)
     }
     
-    /// 経過時間を取得する（分）
+    /// 経過時間が分単位で取得できるか？
     /// check: 24時間経過したか？
     func testDateDiffForMinute() {
         
@@ -82,7 +87,7 @@ class ios_foundation_nscalendarTests: XCTestCase {
         XCTAssertEqual(helper.passTimeByMinitue(fromDate: fromDate, toDate: toDate), 24 * 60)
     }
     
-    /// 経過時間を取得する（日）
+    /// 経過時間が日単位で取得できるか？
     /// check: 7日間経過したか？
     func testDateDiffForDay() {
         
@@ -99,7 +104,7 @@ class ios_foundation_nscalendarTests: XCTestCase {
         XCTAssertTrue(fromDate == toDate)
     }
     
-    /// 同年か？（月日、時間は関係ない）
+    /// 年が同じか？（月日、時間は関係ない）
     func testSameYear() {
         
         let fromDate = str2Date(dateStr: "2017/1/1 1:1")
@@ -107,7 +112,7 @@ class ios_foundation_nscalendarTests: XCTestCase {
         XCTAssertTrue(helper.isSameYear(fromDate: fromDate, toDate: toDate))
     }
     
-    /// 同年、月か？（日、時間は関係ない）
+    /// 年月が同じか？（日、時間は関係ない）
     func testSameMonth() {
         
         let fromDate = str2Date(dateStr: "2017/1/1 1:1")
@@ -123,7 +128,8 @@ class ios_foundation_nscalendarTests: XCTestCase {
         XCTAssertTrue(helper.isSameDate(fromDate: fromDate, toDate: toDate))
     }
     
-    /// 該当付きの月初は何日？
+    /// 該当付きの月初は何日か？
+    /// check : 2017/01/01
     func testStartOfMonth() {
         
         let fromDate = str2Date(dateStr: "2017/1/12 5:5")
@@ -132,6 +138,7 @@ class ios_foundation_nscalendarTests: XCTestCase {
     }
     
     /// 該当付きの月末は何日か？
+    /// check : 2017/01/31
     func testEndOfMonth() {
         
         let fromDate = str2Date(dateStr: "2017/1/12 5:5")
@@ -140,6 +147,7 @@ class ios_foundation_nscalendarTests: XCTestCase {
     }
     
     /// 月の文字列一覧を取得する
+    /// check : 1月、2月、3月、4月、5月、6月、7月、8月、9月、10月、11月、12月
     func testRenderMonthSymbols() {
         
         let monthSymbols = helper.renderMonthSymbols()
@@ -156,6 +164,7 @@ class ios_foundation_nscalendarTests: XCTestCase {
     }
     
     /// 週の文字列一覧を取得する
+    /// check : 月曜日、火曜日、水曜日、木曜日、金曜日、土曜日、日曜日
     func testRenderWeekdaySymbols() {
         
         let weekdaySymbols = helper.renderWeekdaySymbols()
@@ -171,6 +180,7 @@ class ios_foundation_nscalendarTests: XCTestCase {
     }
     
     /// 週の文字列一覧を取得する
+    /// check : 月、火、水、木、金、土、日
     func testRenderShortWeekdaySymbols() {
         
         let weekdaySymbols = helper.renderShortWeekdaySymbols()
@@ -186,6 +196,10 @@ class ios_foundation_nscalendarTests: XCTestCase {
     }
 
     //MARK:Helper
+    /// 文字列を日付型に変換する
+    ///
+    /// - Parameter dateStr: 日付の文字列
+    /// - Returns: 日付型のデータ
     func str2Date(dateStr: String) -> Date {
         
         let formatter = DateFormatter()
@@ -194,6 +208,12 @@ class ios_foundation_nscalendarTests: XCTestCase {
         return formatter.date(from: dateStr)!
     }
     
+    /// 日付型を文字列に変換する
+    ///
+    /// - Parameters:
+    ///   - date: 日付データ
+    ///   - format: 日付の書式
+    /// - Returns: 日付の文字列
     func str2Date(date: Date, format: String) -> String {
         
         let formatter = DateFormatter()
@@ -202,6 +222,12 @@ class ios_foundation_nscalendarTests: XCTestCase {
         return formatter.string(from:date)
     }
     
+    /// 月の文字列一覧確認用のヘルパー
+    ///
+    /// - Parameters:
+    ///   - count: 件数
+    ///   - months: 月の文字列一覧
+    ///   - extrasMatcher: 比較パターン
     func verifyMonth(count: Int,
                      months: [String],
                      extrasMatcher: (([String]) -> Bool)) {
@@ -211,6 +237,12 @@ class ios_foundation_nscalendarTests: XCTestCase {
                       "extras was \(months)")
     }
     
+    /// 週の文字列一覧確認用のヘルパー
+    ///
+    /// - Parameters:
+    ///   - count: データ件数
+    ///   - weeks: 週の文字列一覧
+    ///   - extrasMatcher: 比較パターン
     func verifyWeek(count: Int,
                      weeks: [String],
                      extrasMatcher: (([String]) -> Bool)) {
