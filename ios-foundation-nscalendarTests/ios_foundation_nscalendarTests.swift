@@ -12,13 +12,13 @@ import XCTest
 class ios_foundation_nscalendarTests: XCTestCase {
     
     private let tokyoTimeZone = "Asia/Tokyo"
-    private let jpLocal = "ja"
-    private var calendar = NSCalendar.current
+    private let jpLocale = "ja"
+    private var calendar = Calendar.current
     private let helper = CalendarHelper()
 
     override func setUp() {
         super.setUp()
-        helper.setlocale(locale: jpLocal)
+        helper.setlocale(locale: jpLocale)
         helper.setTimeZone(timeZone: tokyoTimeZone)
     }
     
