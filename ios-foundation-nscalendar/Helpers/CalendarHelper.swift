@@ -12,9 +12,9 @@ final class CalendarHelper {
     
     private var calendar = Calendar.current
     
-    init() {
-        calendar.timeZone = TimeZone(identifier: "Asia/Tokyo")!
-        calendar.locale = Locale(identifier: "ja")
+    init(timeZoneIdentifier: String = "Asia/Tokyo", localeIdentifier: String = "ja") {
+        calendar.timeZone = TimeZone(identifier: timeZoneIdentifier)!
+        calendar.locale = Locale(identifier: localeIdentifier)
     }
 
     /// タイムゾーンを設定する
